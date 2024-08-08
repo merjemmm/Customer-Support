@@ -1,3 +1,5 @@
+//Now, this is our front end and controls how our page actually looks
+
 import Image from "next/image";
 import styles from "./page.module.css";
 
