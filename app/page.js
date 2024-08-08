@@ -1,18 +1,15 @@
 //Now, this is our front end and controls how our page actually looks
 
-import Image from "next/image";
-import styles from "./page.module.css";
-
 'use client'
 
 import { Box, Button, Stack, TextField } from '@mui/material';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hi! I'm the Headstarter support assistant. How can I help you today?",
+      content: "Hi! I'm the Chicago Public Library support assistant. How can I help you today?",
     },
   ])
   const [message, setMessage] = useState('')
@@ -20,7 +17,8 @@ export default function Home() {
 
 
   const sendMessage = async () => {
-    if (!message.trim()) return;  // Don't send empty messages
+    if (!message.trim() || isLoading) return;
+    setIsLoading(true)  // Don't send empty messages
 
     setMessage('')  // Clear the input field
     setMessages((messages) => [
@@ -58,6 +56,8 @@ export default function Home() {
         return reader.read().then(processText)  // Continue reading the next chunk of the response
       })
     })
+
+    setIsLoading(false)
   }
 
   const handleKeyPress = (event) => {
@@ -131,9 +131,12 @@ export default function Home() {
             fullWidth
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            onKeyPress = {handleKeyPress}
+            disabled = {isLoading}
           />
-          <Button variant="contained" onClick={sendMessage}>
-            Send
+          <Button variant="contained" onClick={sendMessage}
+          disabled = {isLoading}>
+            {isLoading ? 'Sending...' : 'Send'}
           </Button>
         </Stack>
       </Stack>
