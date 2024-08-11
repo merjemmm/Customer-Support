@@ -11,17 +11,30 @@ const systemPrompt = "You are a customer support bot for the Chicago Public libr
 "if you don't know some information,  it's okay to say so and offer to connect the user with a human representative" +
 "If asked about technical problems, guide them to our troubleshooting page on our website or to our technical team."
 
-export async function POST(req) {
-    const googleai = new GoogleGenerativeAI(process.env.local.GEMINI_API_KEY) // Create a new instance of the OpenAI client
+const googleai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY) // Create a new instance of the OpenAI client
+const model = googleai.getGenerativeModel({model : "gemini-pro", 
+systemInstruction: "You are a customer support bot for the Chicago Public library, a brick and mortar place where people can borrow and return books, cds, and magazines."});
 
-    const model = googleai.getGenerativeModel({model : "gemini-pro"});
+//console.log('API KEY:', process.env.GEMINI_API_KEY)
+
+export async function POST(req) {
     const data = await req.json() // Parse the JSON body of the incoming request
 
-    const result = await model.generateContentStream(data);
-    const response = await result.response;
-    const text = response.text()
-    console.log(text)
-    return NextResponse.json({message: text})
+    try {
+      
+      const result = await model.generateContent(data);
+      console.log("WORK?");
+
+
+      const response = result.response;
+      const text = response.text();
+      console.log(text);
+  
+      return NextResponse.json({ message: text });
+    } catch (error) {
+      console.error('Error:', error);
+      return NextResponse.json({ error: 'An error occurred' }, { status: 500 });
+    }
 
     //completion = model.generate_content(systemPrompt, stream = true)
   
