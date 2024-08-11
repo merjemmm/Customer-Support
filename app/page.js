@@ -33,7 +33,7 @@ export default function Home() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify([...messages, { role: 'user', content: message }]),
+      body: JSON.stringify([...messages, { role: 'assistant', content: message }]),
     }).then(async (res) => {
       const reader = res.body.getReader()  // Get a reader to read the response body
       const decoder = new TextDecoder()  // Create a decoder to decode the response text

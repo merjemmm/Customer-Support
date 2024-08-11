@@ -17,20 +17,39 @@ systemInstruction: "You are a customer support bot for the Chicago Public librar
 
 //console.log('API KEY:', process.env.GEMINI_API_KEY)
 
+async function startChat(history) {
+  return model.startChat({
+    history: history,
+    generationConfig: {
+      maxOutputTokens: 50
+    },
+  })
+}
+
 export async function POST(req) {
-    const data = await req.json() // Parse the JSON body of the incoming request
+    const history = await req.json() // Parse the JSON body of the incoming request
+    const userMsg = history[history.length - 1]
 
     try {
-      
-      const result = await model.generateContent(data);
+
+      const chat = await startChat(history);
+      const result = await chat.sendMessage(userMsg.parts[0].text);
+
       console.log("WORK?");
+      const response = await result.response;
+      const output = await response.text();
+      return NextResponse.json({text: output})
+
+      
+      // const result = await model.generateContent(data);
+    
 
 
-      const response = result.response;
-      const text = response.text();
-      console.log(text);
+      // const response = result.response;
+      // const text = response.text();
+      // console.log(text);
   
-      return NextResponse.json({ message: text });
+      // return NextResponse.json({ message: text });
     } catch (error) {
       console.error('Error:', error);
       return NextResponse.json({ error: 'An error occurred' }, { status: 500 });
