@@ -124,6 +124,8 @@ export default function Home() {
               </Box>
             </Box>
           ))}
+
+        <div ref={messagesEndRef} />
         </Stack>
         <Stack direction={'row'} spacing={2}>
           <TextField

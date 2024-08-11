@@ -2,6 +2,7 @@
 
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const systemPrompt = "You are a customer support bot for the Chicago Public library, a brick and mortar place where people can borrow and return books, cds, and magazines. " +
 "The Chicago Public Library also offers internet services, reading challenges and events for children. They also have venues for rent. " +
@@ -11,18 +12,41 @@ const systemPrompt = "You are a customer support bot for the Chicago Public libr
 "If asked about technical problems, guide them to our troubleshooting page on our website or to our technical team."
 
 export async function POST(req) {
-    const openai = new OpenAI() // Create a new instance of the OpenAI client
+    const googleai = new GoogleGenerativeAI(process.env.local.API_KEY) // Create a new instance of the OpenAI client
+
+    const model = googleai.getGenerativeModel({model : "gemini-1.5-flash"});
     const data = await req.json() // Parse the JSON body of the incoming request
+
+    //const completion = await model.generateContentStream(systemPrompt);
+
+    // const chat = model.startChat({
+    //   history: [
+    //     {
+    //       role: "user",
+    //       parts: [{ text: "Hello" }],
+    //     },
+    //     {
+    //       role: "model",
+    //       parts: [{ text: "Great to meet you. What would you like to know?" }],
+    //     },
+    //   ],
+    // });
+
+    const result = await model.generateContentStream(data);
+    const response = await result.response;
+    const completion = await response.text()
+
+    //completion = model.generate_content(systemPrompt, stream = true)
   
     // Create a chat completion request to the OpenAI API
-    const completion = await openai.chat.completions.create({
-      messages: [{role: 'system', content: systemPrompt}, ...data], // Include the system prompt and user messages
-      model: 'gpt-4o', // Specify the model to use
-      stream: true, // Enable streaming responses
-    })
+    // const completion = await googleai.chat.completions.create({
+    //   messages: [{role: 'system', content: systemPrompt}, ...data], // Include the system prompt and user messages
+    //   model: 'gpt-3.5-turbo', // Specify the model to use
+    //   stream: true, // Enable streaming responses
+    // })
   
     // Create a ReadableStream to handle the streaming response
-    const stream = new ReadableStream({
+    const new_stream = new ReadableStream({
       async start(controller) {
         const encoder = new TextEncoder() // Create a TextEncoder to convert strings to Uint8Array
         try {
@@ -42,5 +66,5 @@ export async function POST(req) {
       },
     })
   
-    return new NextResponse(stream) // Return the stream as the response
+    return new NextResponse(new_stream) // Return the stream as the response
   }
