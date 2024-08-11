@@ -1,7 +1,7 @@
 //This is the backend of our chat bot
 
-import { NextResponse } from "next/server";
-import OpenAI from "openai";
+import { NextResponse, NextRequest } from "next/server";
+//import OpenAI from "openai";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const systemPrompt = "You are a customer support bot for the Chicago Public library, a brick and mortar place where people can borrow and return books, cds, and magazines. " +
@@ -12,29 +12,16 @@ const systemPrompt = "You are a customer support bot for the Chicago Public libr
 "If asked about technical problems, guide them to our troubleshooting page on our website or to our technical team."
 
 export async function POST(req) {
-    const googleai = new GoogleGenerativeAI(process.env.local.API_KEY) // Create a new instance of the OpenAI client
+    const googleai = new GoogleGenerativeAI(process.env.local.GEMINI_API_KEY) // Create a new instance of the OpenAI client
 
-    const model = googleai.getGenerativeModel({model : "gemini-1.5-flash"});
+    const model = googleai.getGenerativeModel({model : "gemini-pro"});
     const data = await req.json() // Parse the JSON body of the incoming request
-
-    //const completion = await model.generateContentStream(systemPrompt);
-
-    // const chat = model.startChat({
-    //   history: [
-    //     {
-    //       role: "user",
-    //       parts: [{ text: "Hello" }],
-    //     },
-    //     {
-    //       role: "model",
-    //       parts: [{ text: "Great to meet you. What would you like to know?" }],
-    //     },
-    //   ],
-    // });
 
     const result = await model.generateContentStream(data);
     const response = await result.response;
-    const completion = await response.text()
+    const text = response.text()
+    console.log(text)
+    return NextResponse.json({message: text})
 
     //completion = model.generate_content(systemPrompt, stream = true)
   
@@ -46,25 +33,25 @@ export async function POST(req) {
     // })
   
     // Create a ReadableStream to handle the streaming response
-    const new_stream = new ReadableStream({
-      async start(controller) {
-        const encoder = new TextEncoder() // Create a TextEncoder to convert strings to Uint8Array
-        try {
-          // Iterate over the streamed chunks of the response
-          for await (const chunk of completion) {
-            const content = chunk.choices[0]?.delta?.content // Extract the content from the chunk
-            if (content) {
-              const text = encoder.encode(content) // Encode the content to Uint8Array
-              controller.enqueue(text) // Enqueue the encoded text to the stream
-            }
-          }
-        } catch (err) {
-          controller.error(err) // Handle any errors that occur during streaming
-        } finally {
-          controller.close() // Close the stream when done
-        }
-      },
-    })
+    // const new_stream = new ReadableStream({
+    //   async start(controller) {
+    //     const encoder = new TextEncoder() // Create a TextEncoder to convert strings to Uint8Array
+    //     try {
+    //       // Iterate over the streamed chunks of the response
+    //       for await (const chunk of completion) {
+    //         const content = chunk.choices[0]?.delta?.content // Extract the content from the chunk
+    //         if (content) {
+    //           const text = encoder.encode(content) // Encode the content to Uint8Array
+    //           controller.enqueue(text) // Enqueue the encoded text to the stream
+    //         }
+    //       }
+    //     } catch (err) {
+    //       controller.error(err) // Handle any errors that occur during streaming
+    //     } finally {
+    //       controller.close() // Close the stream when done
+    //     }
+    //   },
+    // })
   
-    return new NextResponse(new_stream) // Return the stream as the response
+    //return new NextResponse(new_stream) // Return the stream as the response
   }
