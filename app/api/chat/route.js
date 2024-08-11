@@ -64,7 +64,7 @@ export async function POST(req) {
       {
         role: "user",
         parts: [
-          {text: "Your name will be Sarah and you should keep a friendly demeanor throughout the interactions."},
+          {text: "Your name will be Sarah and you should keep a friendly demeanor throughout the interactions. Their is a Summer Read-aLong happening that you should promote and a Book Club on Fridays."},
         ],
       },
       {
@@ -88,7 +88,7 @@ export async function POST(req) {
       {
         role: "user",
         parts: [
-          {text: "Yes, please."},
+          {text: "Don't offer to fin the closest branch. Tell me about their hours, please."},
         ],
       },
       {
@@ -133,33 +133,6 @@ export async function POST(req) {
 
 
 
-
-
-// import { NextResponse, NextRequest } from "next/server";
-// //import OpenAI from "openai";
-// import { GoogleGenerativeAI } from "@google/generative-ai";
-
-// const systemPrompt = "You are a customer support bot for the Chicago Public library, a brick and mortar place where people can borrow and return books, cds, and magazines. " +
-// "The Chicago Public Library also offers internet services, reading challenges and events for children. They also have venues for rent. " +
-// "Your primary role is to help users and provide information. Prioritize user privacy and security at all times. You should respond to user queries" +
-// " in a friendly, concise, and informative manner. When unsure, politely ask for clarification. Always aim to make interactions smooth and intuitive for all users." +
-// "if you don't know some information,  it's okay to say so and offer to connect the user with a human representative" +
-// "If asked about technical problems, guide them to our troubleshooting page on our website or to our technical team."
-
-// const googleai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY) // Create a new instance 
-// const model = googleai.getGenerativeModel({model : "gemini-pro", 
-// systemInstruction: "You are a customer support bot for the Chicago Public library, a brick and mortar place where people can borrow and return books, cds, and magazines."});
-
-// //console.log('API KEY:', process.env.GEMINI_API_KEY)
-
-// async function startChat(history) {
-//   return model.startChat({
-//     history: history,
-//     generationConfig: {
-//       maxOutputTokens: 50
-//     },
-//   })
-// }
 
 // export async function POST(req) {
 //     const history = await req.json() // Parse the JSON body of the incoming request

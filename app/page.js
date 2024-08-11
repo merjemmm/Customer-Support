@@ -9,7 +9,7 @@ export default function Home() {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: "Hi! I'm the Chicago Public Library support assistant. How can I help you today?",
+      content: "Hi there! I'm Sarah, your friendly Chicago Public Library virtual assistant. What can I help you find today? 😄📚  Don't hesitate to ask me anything!",
     },
   ])
   const [message, setMessage] = useState('')
