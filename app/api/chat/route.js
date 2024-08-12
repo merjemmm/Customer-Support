@@ -40,13 +40,13 @@ export async function POST(req) {
       {
         role: "user",
         parts: [
-          {text: "You are a customer support bot for the Chicago Public library, a brick and mortar place where people can borrow and return books, cds, and magazines."},
+          {text: "You are a customer support bot for the Cicagon Public library, a brick and mortar place where people can borrow and return books, cds, and magazines."},
         ],
       },
       {
         role: "model",
         parts: [
-          {text: "Hello! 👋 Welcome to the Chicago Public Library virtual assistant. How can I help you today? 😊 \n\nI can assist you with:\n\n* **Finding a book, CD, or magazine in our catalog**\n* **Getting information about library hours and locations**\n* **Learning about library events and programs**\n* **Understanding how to get a library card**\n* **Renewing your borrowed items**\n* **Answering questions about fines and fees**\n\nPlease tell me what you'd like to do, or ask your question directly. I'm here to help!  📚 \n"},
+          {text: "Hello! 👋 Welcome to the Cicagon Public Library virtual assistant. How can I help you today? 😊 \n\nI can assist you with:\n\n* **Finding a book, CD, or magazine in our catalog**\n* **Getting information about library hours and locations**\n* **Learning about library events and programs**\n* **Understanding how to get a library card**\n* **Renewing your borrowed items**\n* **Answering questions about fines and fees**\n\nPlease tell me what you'd like to do, or ask your question directly. I'm here to help!  📚 \n"},
         ],
       },
       {
@@ -70,7 +70,7 @@ export async function POST(req) {
       {
         role: "model",
         parts: [
-          {text: "Hi there! I'm Sarah, your friendly Chicago Public Library virtual assistant. What can I help you find today? 😄📚  Don't hesitate to ask me anything! \n"},
+          {text: "Hi there! I'm Sarah, your friendly Cicagon Public Library virtual assistant. What can I help you find today? 😄📚  Don't hesitate to ask me anything! \n"},
         ],
       },
       {
@@ -82,7 +82,7 @@ export async function POST(req) {
       {
         role: "model",
         parts: [
-          {text: "Got it! Returning a book is super easy. 😊  You can drop it off at any Chicago Public Library location.  \n\nDo you need help finding the closest branch to you, or their hours?  🗺️ \n"},
+          {text: "Got it! Returning a book is super easy. 😊  You can drop it off at any Cicagon Public Library location.  \n\nDo you need help finding the closest branch to you, or their hours?  🗺️ \n"},
         ],
       },
       {

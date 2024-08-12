@@ -1,36 +1,21 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Cicagon Public Library
 
-First, run the development server:
+Previously, this project used the name of the Chicago Public Library.
+However, there is no affiliation between the reation of this chatbot and the Chicago Public Library. 
+As such, the information provided by the AI is not true and can not be attributed to the Chicago Public Library. Thus, the name of the library has been changed. 
+This is merely a project and the Chicago Public Library was originally choosen as the library attached to the Ai because of its prominence and reach. 
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Customer Support AI Chatbot
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This Chatbot uses the Gemini API for the backend. The original frontend was mostly based on Bill Zhang's tutorial on teh subject. It has since undergone changes.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Hopefully, RAG will be implemented to improve the responses of the AI. Currently, its knowledge is limited and based on multiple small prompts and interactions. 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Deployed on Vercel
 
-## Learn More
+This application has been deployed on Vercel. 
+You can find it up and running at https://customer-support-ai-pied.vercel.app/. 
+Constructive feedback is encouraged. 
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
