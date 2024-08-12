@@ -2,8 +2,38 @@
 
 'use client'
 
-import { Box, Button, Stack, TextField } from '@mui/material';
+import { Box, Button, Stack, TextField, ThemeProvider, Typography, createTheme } from '@mui/material';
 import { useState, useRef, useEffect } from 'react';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#56BB73',
+      //light: '#90E1D6',
+      //dark: '#219C8C',
+      //contrastText: '#242105'
+    },
+    secondary: {
+      main: '#00C037',
+    },
+  },
+
+  typography: {
+    h1: {
+      fontSize: '3rem',
+      fontWeight: 600,
+    },
+    h2: {
+      fontSize: '1.75rem',
+      fontWeight: 600,
+    },
+    h3: {
+      fontSize: '1.5rem',
+      fontWeight: 600,
+    },
+  },
+
+})
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -69,6 +99,7 @@ export default function Home() {
 
 
   return (
+    <ThemeProvider theme = {theme}>
     <Box
       width="100vw"
       height="100vh"
@@ -76,14 +107,26 @@ export default function Home() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
+      bgcolor= "#D0E7D7"
     >
+      <Box
+      width = "600px"
+      height = "50px"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      border="2px solid green"
+      bgcolor = "#B1F0C3"> 
+        <Typography> For quick questions, chat with our AI </Typography>
+      </Box>
       <Stack
         direction={'column'}
-        width="500px"
-        height="700px"
-        border="1px solid black"
+        width="600px"
+        height="650px"
+        border="2px solid green"
         p={2}
         spacing={3}
+        bgcolor= "#DAF5E2"
       >
         <Stack
           direction={'column'}
@@ -133,5 +176,6 @@ export default function Home() {
         </Stack>
       </Stack>
     </Box>
+    </ThemeProvider>
   )
 }
